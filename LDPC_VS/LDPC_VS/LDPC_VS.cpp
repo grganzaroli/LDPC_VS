@@ -39,7 +39,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//inserindo erro
 	//out_enc[0] ^= 1;
-	out_enc[10] ^= 1;
+	//out_enc[10] ^= 1;
 	//out_enc[500] ^= 1;
 	//out_enc[1000] ^= 1;
 	//out_enc[1200] ^= 1;
@@ -48,7 +48,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	out_enc[2700] ^= 1;
 	//out_enc[3100] ^= 1;
 	//out_enc[3400] ^= 1;
-	out_enc[3900] ^= 1;
+	//out_enc[3900] ^= 1;
 	//out_enc[4300] ^= 1;
 	out_enc[4700] ^= 1;
 	//out_enc[5000] ^= 1;
@@ -56,8 +56,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	//out_enc[5399] ^= 1;
 
 	//teste.decode_hard(out_enc, out_dec);
-	teste.decode_hard2(out_enc, out_dec);
+	//teste.decode_hard2(out_enc, out_dec);
 	//teste.decode_hard3(out_enc, out_dec);
+	teste.decode_hard4(out_enc, out_dec);
 
 	teste.free_hard();
 

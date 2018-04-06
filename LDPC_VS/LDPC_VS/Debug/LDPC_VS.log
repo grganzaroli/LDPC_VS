@@ -1,14 +1,9 @@
-﻿Build started 06/04/2018 16:27:16.
+﻿Build started 06/04/2018 17:20:05.
      1>Project "C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\LDPC_VS\LDPC_VS.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\LDPC_VS.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
-         stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\LDPC_VS.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ldpc.cpp LDPC_VS.cpp
-         LDPC_VS.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\LDPC_VS.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ldpc.cpp
          ldpc.cpp
      1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2055): warning C4244: 'initializing' : conversion from 'double' to 'unsigned short', possible loss of data
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2205): warning C4101: 'a' : unreferenced local variable
-         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.lib" /MACHINE:X86 Debug\ldpc.obj
          Debug\LDPC_VS.obj
@@ -18,4 +13,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.51
+Time Elapsed 00:00:01.52

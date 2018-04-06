@@ -2154,7 +2154,6 @@ bool ldpc::decode_hard(const unsigned char *r,unsigned char *u)
 				else if(r_aux[i] == 1)
 					err[i][1]++;
 
-
 				//corrigir a palavra codigo
 
 				if(err[i][0] > err[i][1])
@@ -2202,7 +2201,6 @@ bool ldpc::decode_hard2(const unsigned char *r,unsigned char *u)
 	unsigned short aux_S = 0; //auxiliar para saber se a sindrome é zero
 	unsigned short max_err = 0; //numero maximo de erros no check node
 	unsigned short max_err_index = -1, old_max_err_index = -2, max_err_index_INDEX = 0; //indice do check node com no maior numero de erros
-	int a;
 	bool status;
 
 	//copiar entrada
@@ -2243,7 +2241,7 @@ bool ldpc::decode_hard2(const unsigned char *r,unsigned char *u)
 		// mensagem ok
 		if(aux_S == 0) 
 		{
-			//printf("MENSAGEM OK. ITERACOES = %i\n", I);
+			printf("MENSAGEM OK. ITERACOES = %i\n", I);
 			status = true;
 			goto end;
 		}
@@ -2270,39 +2268,11 @@ bool ldpc::decode_hard2(const unsigned char *r,unsigned char *u)
 
 			for(int i = 0; i < n; i++)
 			{
-				//if(max_err_index_INDEX == 0)
-				//{
 				if(err[i][0] > max_err)
 				{
 					max_err = err[i][0];
-					//max_err_index = i;
 				}
-				//}
-				/*else
-				{
-				a = 1;
-				for(int j = 0; j < max_err_index_INDEX; j++)
-				{
-				if (i == err[j][1])
-				{
-				a = a*0;
-				break;
-				}
-				}
-
-				if((err[i][0] > max_err)&&(a == 1))
-				{
-				max_err = err[i][0];
-				max_err_index = i;
-				}
-				}*/
 			}
-
-			//if(max_err_index == old_max_err_index)
-			//{
-			//	err[max_err_index_INDEX][1] = max_err_index;
-			//	max_err_index_INDEX++;
-			//}
 
 			/*
 			FILE *G = fopen("err.txt", "w");
@@ -2312,9 +2282,6 @@ bool ldpc::decode_hard2(const unsigned char *r,unsigned char *u)
 			}
 			fclose(G);
 			*/
-
-			//printf("max_err = %i, max_err_index = %i\n", max_err, max_err_index);
-			//r_aux[max_err_index] = r_aux[max_err_index]^1;
 
 			printf("max_err = %i\n", max_err);
 			for(int i = 0; i < n; i++)
@@ -2326,7 +2293,6 @@ bool ldpc::decode_hard2(const unsigned char *r,unsigned char *u)
 				}
 			}
 			printf("\n");
-
 		}
 
 		if(I == max_it) //sair do loop se chegar ao max de iteracoes ou chegar em um "deadlock" 
@@ -2400,7 +2366,7 @@ bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
 		// mensagem ok
 		if(aux_S == 0) 
 		{
-			//printf("MENSAGEM OK. ITERACOES = %i\n", I);
+			printf("MENSAGEM OK. ITERACOES = %i\n", I);
 			status = true;
 			goto end;
 		}
@@ -2440,7 +2406,7 @@ bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
 					a = 1;
 					for(int j = 0; j < max_err_index_INDEX; j++)
 					{
-						if (i == err[j][1])
+						if (i == err[j][1]) //se bit já foi invertido 2x, ignorar
 						{
 							a = a*0;
 							break;
@@ -2457,7 +2423,7 @@ bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
 
 			if(max_err_index == old_max_err_index)
 			{
-				err[max_err_index_INDEX][1] = max_err_index;
+				err[max_err_index_INDEX][1] = max_err_index; //guardar os bits que ja foram invertidos 2x
 				max_err_index_INDEX++;
 			}
 
@@ -2471,6 +2437,163 @@ bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
 			*/
 
 			printf("max_err = %i, max_err_index = %i\n", max_err, max_err_index);
+			r_aux[max_err_index] = r_aux[max_err_index]^1;
+
+		}
+
+		if(I == max_it) //sair do loop se chegar ao max de iteracoes ou chegar em um "deadlock" 
+		{
+			printf("MENSAGEM NAO CORRIGIDA. ITERACOES = %i\n", I);
+			status = false;
+			goto end;
+		}
+	}
+
+end:
+
+	//printf("ITERACOES = %i\n ", I);
+
+	//r_aux é a mensagem corrigida, u é a saída, sem os bits de paridade
+	for(unsigned short i = 0; i < k; i++)
+	{
+		u[i] = r_aux[i];
+	}
+
+	if(status)
+		return true;
+	else
+		return false;
+}
+
+bool ldpc::decode_hard4(const unsigned char *r,unsigned char *u)
+{
+	unsigned short I = 0; //numero de iteraçoes
+	unsigned short aux_S = 0; //auxiliar para saber se a sindrome é zero
+	float max_err = 0; //numero maximo de erros no check node
+	unsigned short max_err_index = -1, old_max_err_index = -2, max_err_index_INDEX = 0; //indice do check node com no maior numero de erros
+	unsigned short inv_bit[100];
+	int a;
+	bool status;
+
+	//copiar entrada
+	for(unsigned short i = 0; i < n; i++)
+	{
+		r_aux[i] = r[i];
+		err[i][1] = 0;
+	}
+
+	for(unsigned short i = 0; i < (n-k); i++)
+	{
+		for(unsigned short j = 0; j < INDX[i]; j++)
+		{
+			err[C[i][j]][1]++; //total de check nodes ligados em cada bit
+		}
+	}
+
+	//buscar e corrigir o erro
+	while(I < max_it)
+	{
+		aux_S = 0;
+		max_err = 0;
+		old_max_err_index = max_err_index;
+		max_err_index = -1;
+
+		//zerar sindrome
+		for(unsigned short i = 0; i < (n-k); i++)
+		{
+			SIN[i] = 0;
+		}
+
+		//calculo da sindrome
+		for(unsigned short i = 0; i < (n-k); i++)
+		{
+			for(unsigned short j = 0; j < INDX[i]; j++)
+			{
+				SIN[i] = SIN[i] ^ r_aux[C[i][j]];
+			}
+		}
+
+		//checar se sindrome � zero
+		for(unsigned short i = 0; i < (n-k); i++)
+		{
+			aux_S = aux_S + SIN[i];    
+		}
+
+		// mensagem ok
+		if(aux_S == 0) 
+		{
+			printf("MENSAGEM OK. ITERACOES = %i\n", I);
+			status = true;
+			goto end;
+		}
+		else
+		{
+			I++;
+
+			printf("ITERACAO %i\n", I);
+
+			//zerar err
+			for(unsigned short i = 0; i < n; i++)
+			{
+				err[i][0] = 0;
+			}
+
+			for(unsigned short i = 0; i < (n-k); i++) // cada fi (check node)
+			{
+				for(unsigned short j = 0; j < INDX[i]; j++) //cada cj (entrada ligada ao check node)
+				{
+					if(SIN[i] != 0)
+						err[C[i][j]][0]++; //contar numero de check nodes com erros
+				}
+			}
+
+			for(int i = 0; i < n; i++)
+			{
+				if(max_err_index_INDEX == 0)
+				{
+					if((float)err[i][0]/err[i][1] > max_err)
+					{
+						max_err = (float)err[i][0]/err[i][1];
+						max_err_index = i;
+					}
+				}
+				else
+				{
+					a = 1;
+					for(int j = 0; j < max_err_index_INDEX; j++)
+					{
+						if (i == inv_bit[j]) //se bit já foi invertido 2x, ignorar
+						{
+							a = a*0;
+							break;
+						}
+					}
+
+					if(((float)err[i][0]/err[i][1] > max_err)&&(a == 1))
+					{
+						max_err = (float)err[i][0]/err[i][1];
+						max_err_index = i;
+					}
+				}
+
+			}
+
+			if(max_err_index == old_max_err_index)
+			{
+				inv_bit[max_err_index_INDEX] = max_err_index; //guardar os bits que ja foram invertidos 2x
+				max_err_index_INDEX++;
+			}
+
+			/*
+			FILE *G = fopen("err.txt", "w");
+			for (unsigned short j = 0; j < (n); j++)
+			{
+				fprintf(G, "%i, %i, %lf\n", err[j][0], err[j][1], (float)err[j][0]/err[j][1]);
+			}
+			fclose(G);
+			*/
+
+			printf("%%max_err = %lf, max_err = %i, total_check_nodes = %i, max_err_index = %i\n", max_err, err[max_err_index][0], err[max_err_index][1], max_err_index);
 			r_aux[max_err_index] = r_aux[max_err_index]^1;
 
 		}
