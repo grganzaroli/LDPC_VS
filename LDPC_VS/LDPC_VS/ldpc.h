@@ -14,6 +14,7 @@ private:
 	unsigned short Q1; //constante da norma para LDPC tipo A
 	unsigned short Q2; //constante da norma para LDPC tipo A
 	bool tipo; //false = tipo A, true = tipo B
+	int n_group; //tamanho do grupo
 
 	unsigned short **C; // matriz de check nodes
 	unsigned short *INDX; // indices para calcular a matriz C, numero de 1s por linha
