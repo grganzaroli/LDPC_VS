@@ -1978,9 +1978,14 @@ void ldpc::init(unsigned short N, unsigned short K)
 			}
 		}
 
-		//matriz identidade pra decodificação
+		//matriz diagonal pra decodificação
 		for (unsigned short i = 0; i < (n-k); i++)
 		{
+			if(i > 0)
+			{
+				C[i][INDX[i]] = i+k-1;
+				INDX[i]++;
+			}
 			C[i][INDX[i]] = i+k;
 			INDX[i]++;
 		}

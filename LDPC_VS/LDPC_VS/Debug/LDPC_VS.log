@@ -1,16 +1,10 @@
-﻿Build started 05/05/2018 11:32:34.
+﻿Build started 23/06/2018 19:22:17.
      1>Project "C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\LDPC_VS\LDPC_VS.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\LDPC_VS.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ldpc.cpp
-         ldpc.cpp
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2050): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2051): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2052): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2053): warning C4305: 'initializing' : truncation from 'double' to 'float'
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2699): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2793): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2936): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(3016): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\LDPC_VS.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt LDPC_VS.cpp
+         LDPC_VS.cpp
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(35): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(56): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.lib" /MACHINE:X86 Debug\ldpc.obj
          Debug\LDPC_VS.obj
@@ -20,4 +14,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.05
+Time Elapsed 00:00:03.20
