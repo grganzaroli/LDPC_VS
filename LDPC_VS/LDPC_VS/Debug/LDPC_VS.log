@@ -1,10 +1,37 @@
-﻿Build started 23/06/2018 19:22:17.
+﻿Build started 24/06/2018 14:26:55.
      1>Project "C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\LDPC_VS\LDPC_VS.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\LDPC_VS.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt LDPC_VS.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\LDPC_VS.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt LDPC_VS.cpp ldpc.cpp
+         ldpc.cpp
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2100): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2101): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2102): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2103): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2106): warning C4305: 'return' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2109): warning C4305: 'return' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2749): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2843): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(2989): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc.cpp(3084): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
          LDPC_VS.cpp
      1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(35): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(56): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(74): warning C4244: '=' : conversion from 'double' to 'unsigned char', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(74): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(75): warning C4244: '=' : conversion from 'double' to 'unsigned char', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(75): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(76): warning C4244: '=' : conversion from 'double' to 'unsigned char', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(76): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(77): warning C4244: '=' : conversion from 'double' to 'unsigned char', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(77): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(78): warning C4244: '=' : conversion from 'double' to 'unsigned char', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(78): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(79): warning C4244: '=' : conversion from 'double' to 'unsigned char', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(79): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(80): warning C4244: '=' : conversion from 'double' to 'unsigned char', possible loss of data
+     1>c:\users\grgan\documents\github\ldpc_vs\ldpc_vs\ldpc_vs\ldpc_vs.cpp(80): warning C4305: '=' : truncation from 'double' to 'float'
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\grgan\Documents\GitHub\LDPC_VS\LDPC_VS\Debug\LDPC_VS.lib" /MACHINE:X86 Debug\ldpc.obj
          Debug\LDPC_VS.obj
@@ -14,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.20
+Time Elapsed 00:00:02.08

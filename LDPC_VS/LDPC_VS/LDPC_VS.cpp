@@ -7,7 +7,7 @@
 
 #pragma warning	(disable: 4996)
 
-#define nldpc 16200
+#define nldpc 7
 #define rate 10
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -40,7 +40,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (unsigned short j = 0; j < (nldpc); j++)
 	{
 		fprintf(G, "%i", out_enc_hard[j]);
-		fprintf(H, "%.0lf ", out_enc_soft[j]);
+		fprintf(H, "%.2lf ", out_enc_soft[j]);
 	}
 	fclose(G);
 	fclose(H);
@@ -53,7 +53,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//inserindo erro
 	//out_enc_hard[0] ^= 1; out_enc_soft[0] = out_enc_soft[0]*(-0.01);
-	out_enc_hard[10] ^= 1; out_enc_soft[10] = out_enc_soft[10]*(-0.1);
+	//out_enc_hard[10] ^= 1; out_enc_soft[10] = out_enc_soft[10]*(-0.2);
 	//out_enc_hard[500] ^= 1; out_enc_soft[500] = out_enc_soft[500]*(-0.01);
 	//out_enc_hard[1000] ^= 1; out_enc_soft[1000] = out_enc_soft[1000]*(-0.01);
 	//out_enc_hard[1200] ^= 1; out_enc_soft[1200] = out_enc_soft[1200]*(-0.01);
@@ -69,6 +69,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	//out_enc_hard[5200] ^= 1; out_enc_soft[5200] = out_enc_soft[5200]*(-0.01);
 	//out_enc_hard[5399] ^= 1; out_enc_soft[5399] = out_enc_soft[5399]*(-0.01);
 
+	if(nldpc == 7)
+	{
+		out_enc_hard[0] = 4.2; out_enc_soft[0] = 4.2; 
+		out_enc_hard[1] = 3.05; out_enc_soft[1] = 3.05; 
+		out_enc_hard[2] = -1.2; out_enc_soft[2] = -1.2; 
+		out_enc_hard[3] = 2.2; out_enc_soft[3] = 2.2;		//ERRO AQUI
+		out_enc_hard[4] = -3.3; out_enc_soft[4] = -3.3; 
+		out_enc_hard[5] = 2.8; out_enc_soft[5] = 2.8; 
+		out_enc_hard[6] = 1.2; out_enc_soft[6] = 1.2; 
+	}
+
 	if(hard)
 	{
 		teste.decode_hard(out_enc_hard, out_dec);
@@ -77,7 +88,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		//teste.decode_hard4(out_enc_hard, out_dec);
 	}
 	else
-		//teste.decode_soft(out_enc_soft, out_dec);
+		//teste.decode_soft_DESATIVADO(out_enc_soft, out_dec);
 		teste.decode_soft_new(out_enc_soft, out_dec);
 
 	if(hard)

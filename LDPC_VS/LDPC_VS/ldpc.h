@@ -44,7 +44,7 @@ public:
 	bool decode_hard3(const unsigned char *r, unsigned char *u); //decodifica [r] em [u] -> hard-decision - maior numero de erros, inverte 1 por vez
 	bool decode_hard4(const unsigned char *r, unsigned char *u); //decodifica [r] em [u] -> hard-decision - maior numero de erros, inverte 1 por vez, com a % de check nodes errados 
 	
-	bool decode_soft(const float *r, unsigned char *u); //decodifica [r] em [u] -> soft-decision
+	bool decode_soft_DESATIVADO(const float *r, unsigned char *u); //decodifica [r] em [u] -> soft-decision
 	bool decode_soft_new(const float *r, unsigned char *u); //decodifica [r] em [u] -> soft-decision - otimizado
 
 	bool encode(const unsigned char *u, unsigned char *v); //codifica [u] em [v]
