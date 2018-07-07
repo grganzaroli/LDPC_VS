@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <cmath>
+#include <ctime>
 #include "ldpc.h"
 
 #pragma warning	(disable: 4996)
@@ -2943,6 +2944,9 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 	}
 
 	printf("ITERACAO %i -> %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf\n", I, LLR_aux[0], LLR_aux[1], LLR_aux[2], LLR_aux[3], LLR_aux[4], LLR_aux[5], LLR_aux[6], LLR_aux[7], LLR_aux[8], LLR_aux[9], LLR_aux[10], LLR_aux[11]);
+	time_t now = time(0);
+	char* dt = ctime(&now);
+    cout << "The local date and time is: " << dt << endl;
 
 	//calculo da sindrome
 	for(unsigned short i = 0; i < (n-k); i++)
@@ -3009,6 +3013,9 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 							printf("OK matriz_R\n");
 	*/
 	printf("ITERACAO %i -> %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf\n", I, LLR_aux[0], LLR_aux[1], LLR_aux[2], LLR_aux[3], LLR_aux[4], LLR_aux[5], LLR_aux[6], LLR_aux[7], LLR_aux[8], LLR_aux[9], LLR_aux[10], LLR_aux[11]);
+	now = time(0);
+	dt = ctime(&now);
+    cout << "The local date and time is: " << dt << endl;
 
 	for(unsigned short i = 0; i < n; i++)
 	{
@@ -3049,27 +3056,53 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 	{
 		printf("MENSAGEM COM ERRO. EXECUTANDO ITERACAO %i\n", I);
 
-		//cada linha de Q e depois R
-		for(unsigned short i = 0; i < (n-k); i++)
+		for(int i = 0; i < 50; i++)
 		{
-			//cada elemento de LLR
-			for(unsigned short j = 0; j < INDX[i]; j++)
+			for(unsigned short j = 0; j < (n-k); j++)
 			{
-				//somatorio
-				for (unsigned short K = 0; K < (n-k); K++)
-				{
-					//matriz Q = LLR
-					if (K == 0)
-						Q[i][j] = r[C[i][j]]; // metodo original
-					//Q[i][C[i][j]] = LLR_aux[C[i][j]]; //meu metodo
+				//R[j][i] = 0;
+				Q[j][i] = 0;
+			}
+		}
 
-					if ((K != i) && (C[K][j] == C[i][j]))
+		//CALCULAR Q
+		for(int a = 0; a < n; a++)
+		{
+			for(int b = 0; b < n-k; b++)
+			{
+				for(int c = 0; c < INDX[b]; c++)
+				{
+					if(C[b][c] == a)
 					{
-						Q[i][j] = Q[i][j]+R[K][j];
+						// SOMATORIO
+						for(int d = 0; d < n-k; d++)
+						{
+							for(int e = 0; e < INDX[b]; e++)
+							{
+								if(C[d][e] == a)
+								{
+									if(!((d == b)&&(e == c)))
+									{
+										Q[b][c]+=R[d][e];
+										//printf("%i\n", Q[b][c]);
+									}
+								}
+							}
+						}
+						Q[b][c] += r[a];
+						//printf("%i\n", Q[b][c]);
+					}
+					else if(C[b][c] > a)
+					{
+						break;
 					}
 				}
 			}
+		}
 
+		//CALCULAR R
+		for(unsigned short i = 0; i < (n-k); i++)
+		{
 			//para cada elemento de R
 			for(unsigned short j = 0; j < INDX[i]; j++)
 			{
@@ -3101,7 +3134,7 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 				LLR_aux[C[j][i]] = LLR_aux[C[j][i]]+R[j][i];
 			}
 		}
-		
+		/*
 							FILE *f = fopen("matriz_R.txt", "w");
 							for (unsigned short j = 0; j < (n-k); j++)
 							{
@@ -3127,8 +3160,11 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 							}
 							fclose(ff);
 							printf("OK matriz_Q\n");
-		
+		*/
 		printf("ITERACAO %i -> %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf\n", I, LLR_aux[0], LLR_aux[1], LLR_aux[2], LLR_aux[3], LLR_aux[4], LLR_aux[5], LLR_aux[6], LLR_aux[7], LLR_aux[8], LLR_aux[9], LLR_aux[10], LLR_aux[11]);
+		time_t now = time(0);
+		char* dt = ctime(&now);
+		cout << "The local date and time is: " << dt << endl;
 
 		for(unsigned short i = 0; i < n; i++)
 		{
@@ -3166,7 +3202,6 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 	}
 
 	printf("MENSAGEM NAO RECUPERADA. NUMERO MAXIMO DE ITERACOES = %i\n", I-1);
-	status = false;
 
 end:
 

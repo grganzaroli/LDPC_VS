@@ -7,7 +7,7 @@
 
 #pragma warning	(disable: 4996)
 
-#define nldpc 7
+#define nldpc 64800
 #define rate 10
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -53,7 +53,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//inserindo erro
 	//out_enc_hard[0] ^= 1; out_enc_soft[0] = out_enc_soft[0]*(-0.01);
-	//out_enc_hard[10] ^= 1; out_enc_soft[10] = out_enc_soft[10]*(-0.2);
+	out_enc_hard[10] ^= 1; out_enc_soft[10] = out_enc_soft[10]*(-0.2);
 	//out_enc_hard[500] ^= 1; out_enc_soft[500] = out_enc_soft[500]*(-0.01);
 	//out_enc_hard[1000] ^= 1; out_enc_soft[1000] = out_enc_soft[1000]*(-0.01);
 	//out_enc_hard[1200] ^= 1; out_enc_soft[1200] = out_enc_soft[1200]*(-0.01);
@@ -78,6 +78,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		out_enc_hard[4] = -3.3; out_enc_soft[4] = -3.3; 
 		out_enc_hard[5] = 2.8; out_enc_soft[5] = 2.8; 
 		out_enc_hard[6] = 1.2; out_enc_soft[6] = 1.2; 
+
+		in_enc[0] = 1;
+		in_enc[1] = 1;
+		in_enc[2] = 0;
+		in_enc[3] = 0;
+		in_enc[4] = 0;
+		in_enc[5] = 1;
+		in_enc[6] = 1;
 	}
 
 	if(hard)
