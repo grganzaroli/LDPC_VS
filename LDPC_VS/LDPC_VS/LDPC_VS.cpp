@@ -90,8 +90,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	if(hard)
 	{
-		teste.decode_hard(out_enc_hard, out_dec);
-		//teste.decode_hard2(out_enc_hard, out_dec);
+		//teste.decode_hard(out_enc_hard, out_dec);
+		teste.decode_hard2(out_enc_hard, out_dec);
 		//teste.decode_hard3(out_enc_hard, out_dec);
 		//teste.decode_hard4(out_enc_hard, out_dec);
 	}
