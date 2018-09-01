@@ -506,7 +506,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 		{1827,10028,20070,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}
 	};
 
-	unsigned short n_ldpc_tab_9_15[132][19]=
+	unsigned short n_ldpc_tab_9_15[108][19]=
 	{
 		{113,1557,3316,5680,6241,10407,13404,13947,14040,14353,15522,15698,16079,17363,19374,19543,20530,22833,24339},
 		{271,1361,6236,7006,7307,7333,12768,15441,15568,17923,18341,20321,21502,22023,23938,25351,25590,25876,25910},
@@ -520,7 +520,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 		{1,19,5958,8548,8860,11489,16845,18450,18469,19496,20190,23173,25262,25566,25668,25679,25858,25888,25915},
 		{7520,7690,8855,9183,14654,16695,17121,17854,18083,18428,19633,20470,20736,21720,22335,23273,25083,25293,25403},
 		{48,58,410,1299,3786,10668,18523,18963,20864,22106,22308,23033,23107,23128,23990,24286,24409,24595,25802},
-		{51,3894,6539,8276,10885,11644,12777,13427,14039,15954,17078,19053,20537,22863,24521,25087,25463,25838},
+		{12,51,3894,6539,8276,10885,11644,12777,13427,14039,15954,17078,19053,20537,22863,24521,25087,25463,25838},
 		{3509,8748,9581,11509,15884,16230,17583,19264,20900,21001,21310,22547,22756,22959,24768,24814,25594,25626,25880},
 		{21,29,69,1448,2386,4601,6626,6667,10242,13141,13852,14137,18640,19951,22449,23454,24431,25512,25814},
 		{18,53,7890,9934,10063,16728,19040,19809,20825,21522,21800,23582,24556,25031,25547,25562,25733,25789,25906},
@@ -1609,7 +1609,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 		case 9:
 			tipo = true;
 			Q_ldpc = 72;
-			n_lin = 132;
+			n_lin = 108;
 			n_col = 19;
 			for(unsigned short i = 0; i < n_lin;  i++)
 				for(unsigned short j = 0; j < n_col; j++)
@@ -1796,7 +1796,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 		k = 4;
 		C = new unsigned short*[n-k]; //matriz C
 		for(unsigned short i = 0; i < (n-k); i++)
-			C[i] = new unsigned short[50];
+			C[i] = new unsigned short[100];
 
 		INDX = new unsigned short[n-k]; //vetor INDX
 
@@ -1811,14 +1811,14 @@ void ldpc::init(unsigned short N, unsigned short K)
 		FILE *f = fopen("matriz_C.txt", "w");
 		for (unsigned short j = 0; j < (n-k); j++)
 		{
-			for (unsigned short i = 0; i < (50); i++)
-			{
-				if(C[j][i] != 65535)
-					fprintf(f, "%i,", C[j][i]);
-				else
-					break;
-			}
-			fprintf(f, "\n");
+		for (unsigned short i = 0; i < (100); i++)
+		{
+		if(C[j][i] != 65535)
+		fprintf(f, "%i,", C[j][i]);
+		else
+		break;
+		}
+		fprintf(f, "\n");
 		}
 		fclose(f);
 		printf("OK matriz_C\n");
@@ -1827,7 +1827,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 		FILE *g = fopen("vetor_INDX.txt", "w");
 		for (unsigned short j = 0; j < (n-k); j++)
 		{
-			fprintf(g, "%i\n", INDX[j]);
+		fprintf(g, "%i\n", INDX[j]);
 		}
 		fclose(g);
 		printf("OK vetor_INDX\n");
@@ -1844,11 +1844,11 @@ void ldpc::init(unsigned short N, unsigned short K)
 
 	C = new unsigned short*[n-k]; //matriz C
 	for(unsigned short i = 0; i < (n-k); i++)
-		C[i] = new unsigned short[50];
+		C[i] = new unsigned short[100];
 
 	C_i = new unsigned short*[n-k]; //matriz C_i
 	for(unsigned short i = 0; i < (n-k); i++)
-		C_i[i] = new unsigned short[50];
+		C_i[i] = new unsigned short[100];
 
 	INDX = new unsigned short[n-k]; //vetor INDX
 
@@ -1860,11 +1860,11 @@ void ldpc::init(unsigned short N, unsigned short K)
 	{
 		for (unsigned short j = 0; j < (n-k); j++)
 		{
-			for (unsigned short i = 0; i < (50); i++)
+			for (unsigned short i = 0; i < (100); i++)
 			{
 				C_i[j][i] = 65535;
 			}
-			for (unsigned short i = 0; i < (50); i++)
+			for (unsigned short i = 0; i < (100); i++)
 			{
 				C[j][i] = 65535;
 			}
@@ -1872,6 +1872,8 @@ void ldpc::init(unsigned short N, unsigned short K)
 			INDX[j] = 0;
 			aux_indx[j] = 0;
 		}
+
+		printf("");
 
 		for (unsigned short j = 0; j < n_lin; j++) //numero de linhas
 		{
@@ -1891,6 +1893,8 @@ void ldpc::init(unsigned short N, unsigned short K)
 				count++;
 			}
 		}
+
+		printf("");
 
 		for(unsigned short i = 0; i < n-k; i++) // para cada i
 		{
@@ -1919,11 +1923,11 @@ void ldpc::init(unsigned short N, unsigned short K)
 
 		for (unsigned short j = 0; j < (n-k); j++)
 		{
-			for (unsigned short i = 0; i < (50); i++)
+			for (unsigned short i = 0; i < (100); i++)
 			{
 				C_i[j][i] = 65535;
 			}
-			for (unsigned short i = 0; i < (50); i++)
+			for (unsigned short i = 0; i < (100); i++)
 			{
 				C[j][i] = 65535;
 			}
@@ -1989,7 +1993,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 		//zerar C e INDX para fazer as permutações
 		for (unsigned short j = 0; j < (n-k); j++)
 		{
-			for (unsigned short i = 0; i < (50); i++)
+			for (unsigned short i = 0; i < (100); i++)
 			{
 				C[j][i] = 65535;
 			}
@@ -2035,11 +2039,11 @@ void ldpc::init(unsigned short N, unsigned short K)
 		}
 	}
 
-	
+
 	FILE *F = fopen("matriz_C_i.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
-		for (unsigned short i = 0; i < (50); i++)
+		for (unsigned short i = 0; i < (100); i++)
 		{
 			if(C_i[j][i] != 65535)
 				fprintf(F, "%i,", C_i[j][i]);
@@ -2051,7 +2055,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 	fclose(F);
 	printf("OK matriz_C_i\n");
 
-	
+
 	FILE *G = fopen("vetor_INDX_i.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
@@ -2064,7 +2068,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 	FILE *f = fopen("matriz_C.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
-		for (unsigned short i = 0; i < (50); i++)
+		for (unsigned short i = 0; i < (100); i++)
 		{
 			if(C[j][i] != 65535)
 				fprintf(f, "%i,", C[j][i]);
@@ -2084,7 +2088,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 	}
 	fclose(g);
 	printf("OK vetor_INDX\n");
-	
+
 
 	//deletar variaveis que nao vou usar mais 
 	delete[] INDX_i;
@@ -2933,7 +2937,7 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 		else
 			r_aux[i] = 0;
 
-		if(n < 50)
+		if(n < 100)
 		{
 			for(unsigned short j = 0; j < (n-k); j++)
 			{
@@ -2946,7 +2950,7 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 	printf("ITERACAO %i -> %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf\n", I, LLR_aux[0], LLR_aux[1], LLR_aux[2], LLR_aux[3], LLR_aux[4], LLR_aux[5], LLR_aux[6], LLR_aux[7], LLR_aux[8], LLR_aux[9], LLR_aux[10], LLR_aux[11]);
 	time_t now = time(0);
 	char* dt = ctime(&now);
-    cout << "The local date and time is: " << dt << endl;
+	cout << "The local date and time is: " << dt << endl;
 
 	//calculo da sindrome
 	for(unsigned short i = 0; i < (n-k); i++)
@@ -2998,30 +3002,30 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 			LLR_aux[C[i][j]] = LLR_aux[C[i][j]]+R[i][j];
 		}
 	}
-	
-							for(unsigned short i = 0; i < n; i++)
-							{
-								if(((LLR_aux[i] > 0)&&(r[i] < 0))||((LLR_aux[i] < 0)&&(r[i] > 0)))
-									printf("INVERTEU BIT %i - LLR = %.2lf\n", i, LLR_aux[i]);
-							}
 
-							FILE *fff = fopen("matriz_R.txt", "w");
-							for (unsigned short j = 0; j < (n-k); j++)
-							{
-								for (unsigned short i = 0; i < (INDX[j]); i++)
-								{
-									fprintf(fff, "%lf,", R[j][i]);
+	for(unsigned short i = 0; i < n; i++)
+	{
+		if(((LLR_aux[i] > 0)&&(r[i] < 0))||((LLR_aux[i] < 0)&&(r[i] > 0)))
+			printf("INVERTEU BIT %i - LLR = %.2lf\n", i, LLR_aux[i]);
+	}
 
-								}
-								fprintf(fff, "\n");
-							}
-							fclose(fff);
-							printf("OK matriz_R\n");
-	
+	FILE *fff = fopen("matriz_R.txt", "w");
+	for (unsigned short j = 0; j < (n-k); j++)
+	{
+		for (unsigned short i = 0; i < (INDX[j]); i++)
+		{
+			fprintf(fff, "%lf,", R[j][i]);
+
+		}
+		fprintf(fff, "\n");
+	}
+	fclose(fff);
+	printf("OK matriz_R\n");
+
 	printf("ITERACAO %i -> %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf\n", I, LLR_aux[0], LLR_aux[1], LLR_aux[2], LLR_aux[3], LLR_aux[4], LLR_aux[5], LLR_aux[6], LLR_aux[7], LLR_aux[8], LLR_aux[9], LLR_aux[10], LLR_aux[11]);
 	now = time(0);
 	dt = ctime(&now);
-    cout << "The local date and time is: " << dt << endl;
+	cout << "The local date and time is: " << dt << endl;
 
 	for(unsigned short i = 0; i < n; i++)
 	{
@@ -3062,7 +3066,7 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 	{
 		printf("MENSAGEM COM ERRO. EXECUTANDO ITERACAO %i\n", I);
 
-		
+
 		for(unsigned short j = 0; j < (n-k); j++)
 		{
 			for(int i = 0; i < INDX[j]; i++)
@@ -3142,38 +3146,38 @@ bool ldpc::decode_soft_new(const float *r,unsigned char *u)
 			}
 		}
 
-							for(unsigned short i = 0; i < n; i++)
-							{
-								if(((LLR_aux[i] > 0)&&(r[i] < 0))||((LLR_aux[i] < 0)&&(r[i] > 0)))
-									printf("INVERTEU BIT %i - LLR = %.2lf\n", i, LLR_aux[i]);
-							}
-		
-							FILE *f = fopen("matriz_R.txt", "w");
-							for (unsigned short j = 0; j < (n-k); j++)
-							{
-								for (unsigned short i = 0; i < (INDX[j]+1); i++)
-								{
-									fprintf(f, "%lf,", R[j][i]);
+		for(unsigned short i = 0; i < n; i++)
+		{
+			if(((LLR_aux[i] > 0)&&(r[i] < 0))||((LLR_aux[i] < 0)&&(r[i] > 0)))
+				printf("INVERTEU BIT %i - LLR = %.2lf\n", i, LLR_aux[i]);
+		}
 
-								}
-								fprintf(f, "\n");
-							}
-							fclose(f);
-							printf("OK matriz_R\n");
+		FILE *f = fopen("matriz_R.txt", "w");
+		for (unsigned short j = 0; j < (n-k); j++)
+		{
+			for (unsigned short i = 0; i < (INDX[j]); i++)
+			{
+				fprintf(f, "%lf,", R[j][i]);
 
-							FILE *ff = fopen("matriz_Q.txt", "w");
-							for (unsigned short j = 0; j < (n-k); j++)
-							{
-								for (unsigned short i = 0; i < (INDX[j]); i++)
-								{
-									fprintf(ff, "%lf,", Q[j][i]);
+			}
+			fprintf(f, "\n");
+		}
+		fclose(f);
+		printf("OK matriz_R\n");
 
-								}
-								fprintf(ff, "\n");
-							}
-							fclose(ff);
-							printf("OK matriz_Q\n");
-		
+		FILE *ff = fopen("matriz_Q.txt", "w");
+		for (unsigned short j = 0; j < (n-k); j++)
+		{
+			for (unsigned short i = 0; i < (INDX[j]); i++)
+			{
+				fprintf(ff, "%lf,", Q[j][i]);
+
+			}
+			fprintf(ff, "\n");
+		}
+		fclose(ff);
+		printf("OK matriz_Q\n");
+
 		printf("ITERACAO %i -> %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf\n", I, LLR_aux[0], LLR_aux[1], LLR_aux[2], LLR_aux[3], LLR_aux[4], LLR_aux[5], LLR_aux[6], LLR_aux[7], LLR_aux[8], LLR_aux[9], LLR_aux[10], LLR_aux[11]);
 		time_t now = time(0);
 		char* dt = ctime(&now);
@@ -3250,11 +3254,11 @@ void ldpc::alocar_soft()
 
 	R = new float*[n-k]; 
 	for(unsigned short i = 0; i < n-k; i++)
-		R[i] = new float[50];
+		R[i] = new float[100];
 
 	Q = new float*[n-k]; 
 	for(unsigned short i = 0; i < n-k; i++)
-		Q[i] = new float[50];
+		Q[i] = new float[100];
 }
 
 void ldpc::free_hard()
@@ -3286,7 +3290,7 @@ bool ldpc::encode(const unsigned char *u, unsigned char *v)
 {
 	//u[k]
 	//v[n]
-	//C[n-k][50], max = n (ou k se ignorar o ultimo valor)
+	//C[n-k][100], max = n (ou k se ignorar o ultimo valor)
 
 	//zerar v
 	for(int i = 0; i < n; i++)
@@ -3301,7 +3305,7 @@ bool ldpc::encode(const unsigned char *u, unsigned char *v)
 	//calcular paridade
 	for(int i = k; i < n; i++)
 	{
-		for(int j = 0; j < 50; j++)
+		for(int j = 0; j < 100; j++)
 		{	
 			if(C[i-k][j] < k) //bits de informação
 			{

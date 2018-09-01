@@ -8,11 +8,11 @@
 #pragma warning	(disable: 4996)
 
 #define nldpc 64800
-#define rate 10
+#define rate 7
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	bool hard = false;
+	bool hard = true;
 
 	ldpc teste;
 
@@ -52,7 +52,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		teste.alocar_soft();
 
 	//inserindo erro
-	//out_enc_hard[0] ^= 1; out_enc_soft[0] = out_enc_soft[0]*(-0.01);
+	out_enc_hard[0] ^= 1; out_enc_soft[0] = out_enc_soft[0]*(-0.01);
 	out_enc_hard[10] ^= 1; out_enc_soft[10] = out_enc_soft[10]*(-0.2);
 	//out_enc_hard[500] ^= 1; out_enc_soft[500] = out_enc_soft[500]*(-0.01);
 	//out_enc_hard[1000] ^= 1; out_enc_soft[1000] = out_enc_soft[1000]*(-0.01);
