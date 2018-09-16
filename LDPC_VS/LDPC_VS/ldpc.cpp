@@ -2039,18 +2039,18 @@ void ldpc::init(unsigned short N, unsigned short K)
 		}
 	}
 
-
+	/*
 	FILE *F = fopen("matriz_C_i.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
-		for (unsigned short i = 0; i < (100); i++)
-		{
-			if(C_i[j][i] != 65535)
-				fprintf(F, "%i,", C_i[j][i]);
-			else
-				break;
-		}
-		fprintf(F, "\n");
+	for (unsigned short i = 0; i < (100); i++)
+	{
+	if(C_i[j][i] != 65535)
+	fprintf(F, "%i,", C_i[j][i]);
+	else
+	break;
+	}
+	fprintf(F, "\n");
 	}
 	fclose(F);
 	printf("OK matriz_C_i\n");
@@ -2059,7 +2059,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 	FILE *G = fopen("vetor_INDX_i.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
-		fprintf(G, "%i\n", INDX_i[j]);
+	fprintf(G, "%i\n", INDX_i[j]);
 	}
 	fclose(G);
 	printf("OK vetor_INDX_i\n");
@@ -2068,14 +2068,14 @@ void ldpc::init(unsigned short N, unsigned short K)
 	FILE *f = fopen("matriz_C.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
-		for (unsigned short i = 0; i < (100); i++)
-		{
-			if(C[j][i] != 65535)
-				fprintf(f, "%i,", C[j][i]);
-			else
-				break;
-		}
-		fprintf(f, "\n");
+	for (unsigned short i = 0; i < (100); i++)
+	{
+	if(C[j][i] != 65535)
+	fprintf(f, "%i,", C[j][i]);
+	else
+	break;
+	}
+	fprintf(f, "\n");
 	}
 	fclose(f);
 	printf("OK matriz_C\n");
@@ -2084,11 +2084,11 @@ void ldpc::init(unsigned short N, unsigned short K)
 	FILE *g = fopen("vetor_INDX.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
-		fprintf(g, "%i\n", INDX[j]);
+	fprintf(g, "%i\n", INDX[j]);
 	}
 	fclose(g);
 	printf("OK vetor_INDX\n");
-
+	*/
 
 	//deletar variaveis que nao vou usar mais 
 	delete[] INDX_i;
@@ -2361,15 +2361,22 @@ end:
 	//printf("ITERACOES = %i\n ", I);
 
 	//r_aux é a mensagem corrigida, u é a saída, sem os bits de paridade
-	for(unsigned short i = 0; i < k; i++)
-	{
-		u[i] = r_aux[i];
-	}
-
 	if(status)
+	{
+		for(unsigned short i = 0; i < k; i++)
+		{
+			u[i] = r_aux[i];
+		}
 		return true;
+	}
 	else
+	{
+		for(unsigned short i = 0; i < k; i++)
+		{
+			u[i] = r[i];
+		}
 		return false;
+	}
 }
 
 bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
