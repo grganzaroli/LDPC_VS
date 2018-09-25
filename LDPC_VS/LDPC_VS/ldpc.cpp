@@ -2064,7 +2064,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 	fclose(G);
 	printf("OK vetor_INDX_i\n");
 
-
+	*/
 	FILE *f = fopen("matriz_C.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
@@ -2080,7 +2080,7 @@ void ldpc::init(unsigned short N, unsigned short K)
 	fclose(f);
 	printf("OK matriz_C\n");
 
-
+	/*
 	FILE *g = fopen("vetor_INDX.txt", "w");
 	for (unsigned short j = 0; j < (n-k); j++)
 	{
@@ -2361,14 +2361,14 @@ end:
 	//printf("ITERACOES = %i\n ", I);
 
 	//r_aux é a mensagem corrigida, u é a saída, sem os bits de paridade
-	if(status)
-	{
+	//if(status)
+	//{
 		for(unsigned short i = 0; i < k; i++)
 		{
 			u[i] = r_aux[i];
 		}
 		return true;
-	}
+	/*}
 	else
 	{
 		for(unsigned short i = 0; i < k; i++)
@@ -2376,7 +2376,7 @@ end:
 			u[i] = r[i];
 		}
 		return false;
-	}
+	}*/
 }
 
 bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
