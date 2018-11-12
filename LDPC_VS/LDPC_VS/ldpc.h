@@ -20,6 +20,8 @@ private:
 	unsigned short *INDX; // indices para calcular a matriz C, numero de 1s por linha
 
 	unsigned short **err; //contagem de 1s e 0s no hard-decision
+	float *E; //confiança de inversão de bit 
+	float *y_min; //y min do check node 
 	unsigned char *r_aux; //in para eu manipular
 	float *LLR_aux; //in em formato LLR pra eu manipular
 	unsigned char *SIN; //sindrome
@@ -41,7 +43,7 @@ public:
 
 	bool decode_hard(const unsigned char *r, unsigned char *u); //decodifica [r] em [u] -> hard-decision - voto majoritário
 	bool decode_hard2(const unsigned char *r, unsigned char *u); //decodifica [r] em [u] -> hard-decision - maior numero de erros, inverte todos
-	bool decode_hard3(const unsigned char *r, unsigned char *u); //decodifica [r] em [u] -> hard-decision - maior numero de erros, inverte 1 por vez
+	bool decode_hard3(const float *r, unsigned char *u); //decodifica [r] em [u] -> hard-decision - weighted bit-flipping
 	bool decode_hard4(const unsigned char *r, unsigned char *u); //decodifica [r] em [u] -> hard-decision - maior numero de erros, inverte 1 por vez, com a % de check nodes errados 
 	
 	bool decode_soft_DESATIVADO(const float *r, unsigned char *u); //decodifica [r] em [u] -> soft-decision

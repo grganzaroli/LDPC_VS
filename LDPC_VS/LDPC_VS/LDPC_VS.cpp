@@ -4,10 +4,11 @@
 #include "stdafx.h"
 #include "ldpc.h"
 #include "stdio.h"
+#include <stdlib.h>
 
 #pragma warning	(disable: 4996)
 
-#define nldpc 15
+#define nldpc 40
 #define rate 10
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -68,8 +69,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	//out_enc_hard[5000] ^= 1; out_enc_soft[5000] = out_enc_soft[5000]*(-0.01);
 	//out_enc_hard[5200] ^= 1; out_enc_soft[5200] = out_enc_soft[5200]*(-0.01);
 	//out_enc_hard[5399] ^= 1; out_enc_soft[5399] = out_enc_soft[5399]*(-0.01);
-	//for(int i = 0; i < 1; i++){
-		//out_enc_hard[i] ^= 1; out_enc_soft[i] = out_enc_soft[i]*(-0.01);}
+	for(int i = 0; i < 2; i++){
+		out_enc_hard[i] ^= 1; out_enc_soft[i] = out_enc_soft[i]*(-0.01);}
 
 	if(nldpc == 7)
 	{
@@ -93,8 +94,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	if(hard)
 	{
 		//teste.decode_hard(out_enc_hard, out_dec);
-		teste.decode_hard2(out_enc_hard, out_dec);
-		//teste.decode_hard3(out_enc_hard, out_dec);
+		//teste.decode_hard2(out_enc_hard, out_dec);
+		teste.decode_hard3(out_enc_soft, out_dec);
 		//teste.decode_hard4(out_enc_hard, out_dec);
 	}
 	else

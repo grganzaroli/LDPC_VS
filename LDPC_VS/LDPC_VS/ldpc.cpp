@@ -2571,28 +2571,32 @@ end:
 	}*/
 }
 
-bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
+bool ldpc::decode_hard3(const float *r,unsigned char *u)
 {
 	unsigned short I = 0; //numero de iteraçoes
 	unsigned short aux_S = 0; //auxiliar para saber se a sindrome é zero
-	unsigned short max_err = 0; //numero maximo de erros no check node
-	unsigned short max_err_index = -1, old_max_err_index = -2, max_err_index_INDEX = 0; //indice do check node com no maior numero de erros
-	int a;
+	float max_E = 0; //numero maximo de erros no check node
+	unsigned short max_E_index = -1; //indice do check node com no maior numero de erros
 	bool status;
 
 	//copiar entrada
 	for(unsigned short i = 0; i < n; i++)
 	{
-		r_aux[i] = r[i];
+		//printf("r[%i] = %f\n", i, r[i]);
+		if (r[i] > 0)
+			r_aux[i] = 1;
+		else
+			r_aux[i] = 0;
 	}
+
+	//printf("\n");
 
 	//buscar e corrigir o erro
 	while(I < max_it)
 	{
 		aux_S = 0;
-		max_err = 0;
-		old_max_err_index = max_err_index;
-		max_err_index = -1;
+		max_E = 0;
+		max_E_index = -1;
 
 		//zerar sindrome
 		for(unsigned short i = 0; i < (n-k); i++)
@@ -2628,69 +2632,62 @@ bool ldpc::decode_hard3(const unsigned char *r,unsigned char *u)
 
 			printf("ITERACAO %i\n", I);
 
-			//zerar err
-			for(unsigned short i = 0; i < n; i++)
-			{
-				err[i][0] = 0;
-			}
-
-			for(unsigned short i = 0; i < (n-k); i++) // cada fi (check node)
-			{
-				for(unsigned short j = 0; j < INDX[i]; j++) //cada cj (entrada ligada ao check node)
-				{
-					if(SIN[i] != 0)
-						err[C[i][j]][0]++; //contar numero de check nodes com erros
-				}
-			}
-
+			//zerar variaveis
 			for(int i = 0; i < n; i++)
 			{
-				if(max_err_index_INDEX == 0)
+				E[i] = 0;
+				//if (i < n-k)
+				y_min[i] = 999999999;
+			}
+
+			//calcular somatorio de E e y_min
+			for(unsigned short i = 0; i < (n-k); i++)
+			{	
+				for(unsigned short j = 0; j < INDX[i]; j++)
 				{
-					if(err[i][0] > max_err)
-					{
-						max_err = err[i][0];
-						max_err_index = i;
-					}
+					E[C[i][j]] += 2*SIN[i]-1;
+
+					if (y_min[C[i][j]] >= abs(r[C[i][j]]))
+						y_min[C[i][j]] = abs(r[C[i][j]]);
 				}
-				else
+				//printf("y_min[%i] = %.2f\n", i, y_min[i]);
+			}
+
+			//printf("\n");
+
+			//multilicação de E por y_min
+			for(unsigned short i = 0; i < (n-k); i++)
+			{	
+				for(unsigned short j = 0; j < INDX[i]; j++)
 				{
-					a = 1;
-					for(int j = 0; j < max_err_index_INDEX; j++)
-					{
-						if (i == err[j][1]) //se bit já foi invertido 2x, ignorar
-						{
-							a = a*0;
-							break;
-						}
-					}
-
-					if((err[i][0] > max_err)&&(a == 1))
-					{
-						max_err = err[i][0];
-						max_err_index = i;
-					}
+					E[C[i][j]] *= y_min[i];
 				}
 			}
 
-			if(max_err_index == old_max_err_index)
+			//encontrar max_E
+			for(int i = 0; i < n; i++)
 			{
-				err[max_err_index_INDEX][1] = max_err_index; //guardar os bits que ja foram invertidos 2x
-				max_err_index_INDEX++;
+				if(E[i] > max_E)
+				{
+					max_E = E[i];
+				}
+				printf("E[%i] = %.2f, y_min[%i] = %.2f\n", i, E[i], i, y_min[i]);
 			}
 
-			/*
-			FILE *G = fopen("err.txt", "w");
-			for (unsigned short j = 0; j < (n); j++)
+			printf("\n");
+
+			//inverter bits
+			printf("max_err = %i\n", max_E);
+			for(int i = 0; i < n; i++)
 			{
-			fprintf(G, "%i\n", err[j][0]);
+				if(E[i] == max_E)
+				{
+					printf("E[%i] = %f\n", i, E[i]);
+					r_aux[i] = r_aux[i]^1;
+				}
 			}
-			fclose(G);
-			*/
-
-			printf("max_err = %i, max_err_index = %i\n", max_err, max_err_index);
-			r_aux[max_err_index] = r_aux[max_err_index]^1;
-
+			printf("\n");
+			
 		}
 
 		if(I == max_it) //sair do loop se chegar ao max de iteracoes ou chegar em um "deadlock" 
@@ -3443,6 +3440,9 @@ void ldpc::alocar_hard()
 	err = new unsigned short*[n];
 	for(unsigned short i = 0; i < n; i++)
 		err[i] = new unsigned short[2];
+
+	E = new float[n];
+	y_min = new float[n];
 }
 
 void ldpc::alocar_soft()
