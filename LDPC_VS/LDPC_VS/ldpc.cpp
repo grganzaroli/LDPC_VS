@@ -1780,8 +1780,9 @@ void ldpc::init(unsigned short N, unsigned short K)
 			break;
 		}
 	}
-	else if(n == 40) 
+	else if(n == 40) //Implementation of an LDPC decoder for the DVB-S2,-T2 and -C2 standards
 	{
+		k = 16;
 		n_group = 8;
 		tipo = true;
 		Q_ldpc = 3;
@@ -2576,8 +2577,8 @@ bool ldpc::decode_hard3(const float *r,unsigned char *u)
 	unsigned short I = 0; //numero de iteraçoes
 	unsigned short aux_S = 0; //auxiliar para saber se a sindrome é zero
 	float max_E = 0; //numero maximo de erros no check node
-	unsigned short max_E_index = -1; //indice do check node com no maior numero de erros
 	bool status;
+	float min; //valor minimo de r da linha da matriz
 
 	//copiar entrada
 	for(unsigned short i = 0; i < n; i++)
@@ -2596,7 +2597,6 @@ bool ldpc::decode_hard3(const float *r,unsigned char *u)
 	{
 		aux_S = 0;
 		max_E = 0;
-		max_E_index = -1;
 
 		//zerar sindrome
 		for(unsigned short i = 0; i < (n-k); i++)
@@ -2636,33 +2636,35 @@ bool ldpc::decode_hard3(const float *r,unsigned char *u)
 			for(int i = 0; i < n; i++)
 			{
 				E[i] = 0;
-				//if (i < n-k)
 				y_min[i] = 999999999;
 			}
 
 			//calcular somatorio de E e y_min
 			for(unsigned short i = 0; i < (n-k); i++)
 			{	
+				min = 999999999;
 				for(unsigned short j = 0; j < INDX[i]; j++)
 				{
 					E[C[i][j]] += 2*SIN[i]-1;
-
-					if (y_min[C[i][j]] >= abs(r[C[i][j]]))
-						y_min[C[i][j]] = abs(r[C[i][j]]);
+					if (min >= abs(r[C[i][j]]))
+						min = abs(r[C[i][j]]);
 				}
+				for(unsigned short j = 0; j < INDX[i]; j++)
+				{
+					if (min <= y_min[C[i][j]])
+						y_min[C[i][j]] = min;
+				}
+			}
+
+			//multilicação de E por y_min
+			for(unsigned short i = 0; i < n; i++)
+			{	
+				//printf("E[%i] = %.2f\n", i, E[i]);
+				E[i] *= y_min[i];
 				//printf("y_min[%i] = %.2f\n", i, y_min[i]);
 			}
 
 			//printf("\n");
-
-			//multilicação de E por y_min
-			for(unsigned short i = 0; i < (n-k); i++)
-			{	
-				for(unsigned short j = 0; j < INDX[i]; j++)
-				{
-					E[C[i][j]] *= y_min[i];
-				}
-			}
 
 			//encontrar max_E
 			for(int i = 0; i < n; i++)
@@ -2671,23 +2673,23 @@ bool ldpc::decode_hard3(const float *r,unsigned char *u)
 				{
 					max_E = E[i];
 				}
-				printf("E[%i] = %.2f, y_min[%i] = %.2f\n", i, E[i], i, y_min[i]);
+				//printf("E[%i] = %.2f, y_min[%i] = %.2f\n", i, E[i], i, y_min[i]);
 			}
 
 			printf("\n");
 
 			//inverter bits
-			printf("max_err = %i\n", max_E);
+			printf("max_E = %.2lf\n", max_E);
 			for(int i = 0; i < n; i++)
 			{
 				if(E[i] == max_E)
 				{
-					printf("E[%i] = %f\n", i, E[i]);
+					printf("E[%i] = %.2f\n", i, E[i]);
 					r_aux[i] = r_aux[i]^1;
 				}
 			}
-			printf("\n");
-			
+			//printf("\n");
+
 		}
 
 		if(I == max_it) //sair do loop se chegar ao max de iteracoes ou chegar em um "deadlock" 

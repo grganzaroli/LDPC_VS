@@ -8,7 +8,7 @@
 
 #pragma warning	(disable: 4996)
 
-#define nldpc 40
+#define nldpc 16200
 #define rate 10
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -69,8 +69,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	//out_enc_hard[5000] ^= 1; out_enc_soft[5000] = out_enc_soft[5000]*(-0.01);
 	//out_enc_hard[5200] ^= 1; out_enc_soft[5200] = out_enc_soft[5200]*(-0.01);
 	//out_enc_hard[5399] ^= 1; out_enc_soft[5399] = out_enc_soft[5399]*(-0.01);
-	for(int i = 0; i < 2; i++){
-		out_enc_hard[i] ^= 1; out_enc_soft[i] = out_enc_soft[i]*(-0.01);}
+	for(int i = 0; i < 200; i++){
+		out_enc_hard[i] ^= 1; out_enc_soft[i] = out_enc_soft[i]*(-0.01)+(0.000001*i);}
 
 	if(nldpc == 7)
 	{
@@ -108,7 +108,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		teste.free_soft();
 
 	int e = 0;
-	for(int i = 0; i < nldpc*rate/15; i++)
+	int size = nldpc*rate/15;
+	if (nldpc == 40)
+		size = 16;
+	else if (nldpc == 7)
+		size = 4;
+	for(int i = 0; i < size; i++)
 	{
 		if(in_enc[i] != out_dec[i])
 		{
